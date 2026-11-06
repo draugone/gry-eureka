@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pracownia ruchu 0.5.2 — maszyny i klawiatura</title>
+<title>Pracownia ruchu 0.5.3 — maszyny i klawiatura</title>
 <meta name="description" content="Cicha gra do poznawania myszki i klawiatury. Jeden gest naraz i spokojne eksperymenty z torem dla kulki.">
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111e32;color:#edf5ff;font-family:system-ui,sans-serif;overscroll-behavior:none}body{user-select:none;-webkit-user-select:none}button,select{font:inherit}button{cursor:pointer;border:0}button:focus-visible,select:focus-visible,input:focus-visible{outline:4px solid #ffce65;outline-offset:3px}[hidden]{display:none!important}#app{height:100dvh;padding:12px}main{width:100%;height:100%;position:relative;overflow:hidden;border:1px solid #34455d;border-radius:24px;background:#15263c}canvas{display:block;width:100%;height:100%;touch-action:none;outline:0}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}#teacher{position:fixed;inset:0;background:#08101fce;z-index:20;display:grid;place-items:center;padding:20px}.panel{background:#f4f7fc;color:#172840;max-width:620px;width:100%;max-height:95vh;overflow:auto;border-radius:22px;padding:28px;user-select:text}.panel h1{font-size:25px;margin:0 0 16px}.panel p{line-height:1.5}.panel label{display:block;margin:18px 0}.panel select{padding:10px;margin:8px 0;width:100%}.panel button{padding:12px 18px;border-radius:10px;background:#214c70;color:white;margin:4px 8px 4px 0}.panel .secondary{background:#dce5f0;color:#172840}#stats{background:#e2eaf3;padding:14px;border-radius:12px;font-size:15px;line-height:1.65}.version{font-size:14px;color:#526078}@media(max-width:700px){#app{padding:5px}main{border-radius:14px}}
@@ -13,10 +13,10 @@
 </style>
 </head>
 <body>
-<div id="app"><main><canvas id="world" tabindex="0" aria-label="Plansza gry. Podążaj za pokazem na planszy. Panel nauczyciela: przytrzymaj prawy dolny róg przez trzy sekundy."></canvas><span id="versionMark" aria-label="Wersja gry 0.5.2">v0.5.2</span><button id="teacherAccess" type="button" aria-label="Panel nauczyciela: przytrzymaj przez trzy sekundy" aria-haspopup="dialog" aria-controls="teacher" aria-expanded="false"></button><span class="sr" id="announcement" aria-live="polite"></span></main></div>
+<div id="app"><main><canvas id="world" tabindex="0" aria-label="Plansza gry. Podążaj za pokazem na planszy. Panel nauczyciela: przytrzymaj prawy dolny róg przez trzy sekundy."></canvas><span id="versionMark" aria-label="Wersja gry 0.5.3">v0.5.3</span><button id="teacherAccess" type="button" aria-label="Panel nauczyciela: przytrzymaj przez trzy sekundy" aria-haspopup="dialog" aria-controls="teacher" aria-expanded="false"></button><span class="sr" id="announcement" aria-live="polite"></span></main></div>
 <div id="teacher" hidden><section class="panel" role="dialog" aria-modal="true" aria-labelledby="panel-title">
 <h1 id="panel-title">Pracownia ruchu · panel nauczyciela</h1>
-<p>Dziecko przechodzi kolejno przez ruch kursorem, klikanie, przeciąganie i budowanie toru. W dalszych poziomach toru pojawiają się maszyny obsługiwane klawiaturą. Nie ma menu wyboru gier. Złoty kursor pokazuje gest bezpośrednio na celu; biały kursor należy do dziecka.</p>
+<p>Nowy uczeń zaczyna od etapu 4 (budowanie toru, poziom 1); wcześniejsze etapy — ruch kursorem, klikanie i przeciąganie — można ustawić poniżej. W dalszych poziomach toru pojawiają się maszyny obsługiwane klawiaturą. Nie ma menu wyboru gier. Złoty kursor pokazuje gest bezpośrednio na celu; biały kursor należy do dziecka.</p>
 <div id="loadStatus" role="status">Sprawdzanie poprzedniego zapisu…</div><div id="saveStatus" role="status">Sprawdzanie zapisu…</div><div id="whereStatus" role="status"></div>
 <div class="progressBox"><label>Etap — ustaw postęp ucznia<select id="stage"><option value="0">1. Poruszanie kursorem</option><option value="1">2. Lewy przycisk</option><option value="2">3. Przeciąganie i upuszczanie</option><option value="3">4. Spokojne budowanie toru</option></select></label>
 <div id="practiceFields"><label>Udane gesty w bieżącej serii<select id="practiceCount"><option value="0">0 z 6 — od początku</option><option value="1">1 z 6</option><option value="2">2 z 6</option><option value="3">3 z 6</option><option value="4">4 z 6</option><option value="5">5 z 6</option></select></label></div>
@@ -29,8 +29,8 @@
 <p>Maszyny (pojawiają się kolejno, każda najpierw sama):</p>
 <ul><li><b>Wyrzutnia</b> łapie kulkę i pokazuje litery. Dziecko wpisuje je po kolei; po ostatniej literze kulka wylatuje. Na dole planszy widać klawiaturę z podświetlonym klawiszem. Liczba liter rośnie od jednej do czterech.</li><li><b>Koło łopatkowe</b> łapie kulkę i obraca się strzałką w lewo albo w prawo — kierunek pokazuje klawisz nad kołem.</li><li><b>Winda</b> łapie kulkę i jedzie w górę po każdym naciśnięciu strzałki w górę.</li><li><b>Trampolina</b> to przesuwany myszką element. Kulka odbija się od niej zawsze tak samo — w górę i w stronę koszyka. Różowe kropki pokazują tor odbicia; gdy tor przechodzi przez obręcz i trafia do koszyka, oba miejsca dostają różową obwódkę.</li></ul>
 <p>Zły klawisz tylko lekko porusza maszyną — nic nie zabiera. Jeśli klawisze nie działają, dziecko powinno kliknąć planszę (gra pokazuje to złotym kursorem).</p>
-<button id="closePanel">Wróć do gry</button><button id="restart" class="secondary">Nowy uczeń — od początku</button>
-<p class="version">Wersja 0.5.2 · Przytrzymaj lewy przycisk przez 3 sekundy w prawym dolnym rogu planszy, aby otworzyć panel. Ctrl + Alt + M pozostaje dodatkowym skrótem. Postęp zapisuje się automatycznie w tej przeglądarce na tym komputerze. Stan zapisu jest widoczny powyżej. Reset wymaga potwierdzenia.</p>
+<button id="closePanel">Wróć do gry</button><button id="restart" class="secondary">Nowy uczeń — wyzeruj postęp</button>
+<p class="version">Wersja 0.5.3 · Przytrzymaj lewy przycisk przez 3 sekundy w prawym dolnym rogu planszy, aby otworzyć panel. Ctrl + Alt + M pozostaje dodatkowym skrótem. Postęp zapisuje się automatycznie w tej przeglądarce na tym komputerze. Stan zapisu jest widoczny powyżej. Reset wymaga potwierdzenia.</p>
 </section></div>
 <script>
 (() => {
@@ -39,7 +39,7 @@ const canvas=document.getElementById('world'),ctx=canvas.getContext('2d');
 const W=1100,H=720,C=['#66e2c5','#ffcd68','#98b9ff','#ff9992'],G=260,SLOW=1.05;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y),copy=v=>JSON.parse(JSON.stringify(v));
-const DEFAULT_BASE=4,LETTERS='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const START_MODE=3,DEFAULT_BASE=4,LETTERS='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 let mode=0,t=0,last=0,scale=1,ox=0,oy=0,adaptive=true,auto=true,paused=false,resetArmed=false;
 let pointer={x:-500,y:-500},pressed=null,drag=null,transition=null,round=0,taskStart=0,lastAction=0,forceHint=0;
 let target=null,piece=null,destination=null,rings=[],trail=[],sparks=[];
@@ -164,7 +164,7 @@ function applyTeacherProgress(){
  try{stopTrial();drag=null;pressed=null;transition=null;levelAdvanceAt=0;
   if(m===3){const same=mode===3&&puzzle===n&&newBase===b;newBase=b;if(mode!==3)setMode(3);if(!same)setupPuzzle(n);levelHits=h;if(h>0)buildGuide=2;}
   else{if(mode!==m)setMode(m);round=r;setupTask();}
-  history=[];solved=false;resetArmed=false;document.getElementById('restart').textContent='Nowy uczeń — od początku';
+  history=[];solved=false;resetArmed=false;document.getElementById('restart').textContent='Nowy uczeń — wyzeruj postęp';
  }finally{suppressSave=false;}
  const saved=saveProgress();notice.textContent=saved?'Ustawiono i zapisano postęp. Kliknij „Wróć do gry”.':'Ustawiono postęp w tej sesji, ale zapis na komputerze nie działa. Szczegóły powyżej.';
  syncProgressFields();
@@ -462,8 +462,8 @@ function gameKey(e){
  if((e.code==='Space'||e.key===' ')&&!ball&&launchReady()&&!drag){launch();return true}
  return true;
 }
-function toggleTeacher(open){if(open)saveProgress();paused=open;drag=null;pressed=null;document.getElementById('teacher').hidden=!open;document.getElementById('teacherAccess').setAttribute('aria-expanded',String(open));document.getElementById('stage').value=String(mode);resetArmed=false;document.getElementById('restart').textContent='Nowy uczeń — od początku';document.getElementById('stats').textContent=`Udane gesty: ruch ${stats.hits[0]}, kliknięcia ${stats.hits[1]}, upuszczenia ${stats.hits[2]}. Próby toru: ${stats.trials}; kulki w koszyku: ${stats.caught}. Klawisze w maszynach: trafione ${stats.keysOK}, inne ${stats.keysMiss}. To obserwacje, nie ocena dziecka.`;if(open){syncProgressFields();document.getElementById('progressNotice').textContent='Wybierz postęp i kliknij „Ustaw postęp”, aby go zmienić.';showSaveStatus();document.getElementById('closePanel').focus()}else canvas.focus({preventScroll:true})}
-function reset(){loadMessage='Postęp wyzerowano przyciskiem „Nowy uczeń”.';saveBlocked=false;suppressSave=true;stats=newStats();history=[];puzzle=0;levelHits=0;buildGuide=0;ramps=[];pads=[];machines=[];newBase=DEFAULT_BASE;setMode(0);suppressSave=false;saveProgress();toggleTeacher(false)}
+function toggleTeacher(open){if(open)saveProgress();paused=open;drag=null;pressed=null;document.getElementById('teacher').hidden=!open;document.getElementById('teacherAccess').setAttribute('aria-expanded',String(open));document.getElementById('stage').value=String(mode);resetArmed=false;document.getElementById('restart').textContent='Nowy uczeń — wyzeruj postęp';document.getElementById('stats').textContent=`Udane gesty: ruch ${stats.hits[0]}, kliknięcia ${stats.hits[1]}, upuszczenia ${stats.hits[2]}. Próby toru: ${stats.trials}; kulki w koszyku: ${stats.caught}. Klawisze w maszynach: trafione ${stats.keysOK}, inne ${stats.keysMiss}. To obserwacje, nie ocena dziecka.`;if(open){syncProgressFields();document.getElementById('progressNotice').textContent='Wybierz postęp i kliknij „Ustaw postęp”, aby go zmienić.';showSaveStatus();document.getElementById('closePanel').focus()}else canvas.focus({preventScroll:true})}
+function reset(){loadMessage='Postęp wyzerowano przyciskiem „Nowy uczeń”.';saveBlocked=false;suppressSave=true;stats=newStats();history=[];puzzle=0;levelHits=0;buildGuide=0;ramps=[];pads=[];machines=[];newBase=DEFAULT_BASE;setMode(START_MODE);suppressSave=false;saveProgress();toggleTeacher(false)}
  document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.altKey&&e.code==='KeyM'){e.preventDefault();toggleTeacher(!paused)}else if(e.key==='Escape'&&paused){e.preventDefault();toggleTeacher(false)}else if(paused&&e.key==='Tab'){const el=[...document.querySelectorAll('#teacher button,#teacher select,#teacher input')].filter(e=>!e.closest('[hidden]')),i=el.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();el.at(-1).focus()}else if(!e.shiftKey&&i===el.length-1){e.preventDefault();el[0].focus()}}else gameKey(e)});
  const access=document.getElementById('teacherAccess');let holdTimer=null,holdOrigin=null;
  function cancelAccess(){if(holdTimer!==null)clearTimeout(holdTimer);holdTimer=null;holdOrigin=null;access.classList.remove('holding')}
@@ -476,7 +476,7 @@ function reset(){loadMessage='Postęp wyzerowano przyciskiem „Nowy uczeń”.'
  window.addEventListener('pagehide',saveProgress);document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress()});
  try{firstSeen=localStorage.getItem(FIRST_KEY)||'';if(!firstSeen){firstSeen=new Date().toISOString();firstSeenNew=true;localStorage.setItem(FIRST_KEY,firstSeen)}}catch{firstSeen=''}
  try{if(navigator.storage&&navigator.storage.persist){navigator.storage.persisted().then(v=>{persistState=v?'przyznana':'nieprzyznana';if(!v)return navigator.storage.persist().then(g=>{persistState=g?'przyznana':'odmówiona przez przeglądarkę'})}).catch(()=>{persistState='niedostępna'})}else persistState='niedostępna'}catch{persistState='niedostępna'}
- if(!loadProgress())setMode(0);progressReady=true;saveProgress();resize();requestAnimationFrame(tick);canvas.focus({preventScroll:true});
+ if(!loadProgress())setMode(START_MODE);progressReady=true;saveProgress();resize();requestAnimationFrame(tick);canvas.focus({preventScroll:true});
 })();
 </script>
 </body></html>
